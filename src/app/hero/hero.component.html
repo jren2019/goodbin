@@ -1,0 +1,66 @@
+<section class="hero">
+  <!-- Add parallax background layers -->
+  <div class="parallax-background">
+    <div class="parallax-layer layer-1"></div>
+    <div class="parallax-layer layer-2"></div>
+    <div class="parallax-layer layer-3"></div>
+  </div>
+
+  <div class="overlay">
+    <!-- Particle container -->
+    <div class="particles-container" id="particles-container"></div>
+
+    <div class="content">
+      <!-- Floating CTA card positioned absolutely -->
+      <div class="cta-card floating fade-in" id="ctaCard">
+        <div class="sparkle-icon top-right"></div>
+        <div class="sparkle-icon bottom-left"></div>
+        <h3>Need a Quote?</h3>
+        <p>Get a detailed quote for your bin hire needs</p>
+        <a routerLink="/get-free-quote" class="cta-button" (click)="$event.stopPropagation()">
+          <span class="button-text">Get a Free Quote</span>
+          <span class="button-arrow">→</span>
+        </a>
+      </div>
+
+      <div class="hero-text">
+        <h1>Skip Bin Hire Made Easy</h1>
+        <p>Fast delivery, great prices, friendly service across Auckland</p>
+        <div class="buttons">
+          <button (click)="openAddressDialog()" class="btn primary">
+            <i class="icon">🗑️</i>
+            Book a Bin Now
+          </button>
+          <button (click)="openWinzDialog()" class="btn secondary">
+            <i class="icon">💰</i>
+            Get a WINZ Quote
+          </button>
+          <a href="tel:02040936279" class="btn outline">
+            <i class="icon">📞</i>
+            Call Us: 020 4093 6279
+          </a>
+        </div>
+
+        <app-address-dialog
+          [isOpen]="showAddressDialog"
+          (isOpenChange)="handleDialogOpenChange($event)"
+          (bookingDataSubmitted)="handleBookingDataSubmitted($event)"
+        ></app-address-dialog>
+
+        <app-winz-dialog
+          [isOpen]="showWinzDialog"
+          (isOpenChange)="handleDialogOpenChange($event)"
+          (winzQuoteSubmitted)="handleWinzQuoteSubmitted($event)"
+        ></app-winz-dialog>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add scroll indicator at the bottom of the hero section -->
+  <div class="scroll-indicator">
+    <div class="chevron"></div>
+    <div class="chevron"></div>
+    <div class="chevron"></div>
+    <span class="scroll-text">Scroll down</span>
+  </div>
+</section>

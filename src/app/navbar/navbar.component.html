@@ -1,0 +1,26 @@
+<nav class="navbar">
+  <div class="container">
+    <a routerLink="/" class="logo">
+      <img src="assets/images/e-waste.svg" alt="Good Bins logo" />
+    </a>
+
+    <button class="mobile-menu-btn" (click)="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul class="nav-links" [class.active]="menuActive">
+      <li><a routerLink="/" (click)="closeMenu()">Home</a></li>
+      <li><a class="quote-btn" routerLink="/services" (click)="closeMenu()">Order Online</a></li>
+      <li><a routerLink="/services" (click)="closeMenu()">Our Bins</a></li>
+      <li><a routerLink="/how-it-works" (click)="closeMenu()">How it works</a></li>
+      <li><a routerLink="/faq" (click)="closeMenu()">FAQ</a></li>
+      <li><a routerLink="/blog" (click)="closeMenu()">Blog</a></li>
+      <li><a routerLink="/about" (click)="closeMenu()">About</a></li>
+      <li *ngIf="isLoggedIn"><a routerLink="/profile" (click)="closeMenu()">My Profile</a></li>
+      <li *ngIf="isLoggedIn"><a href="javascript:void(0)" (click)="logout(); closeMenu()">Logout</a></li>
+      <li *ngIf="!isLoggedIn"><a routerLink="/login" (click)="closeMenu()">Login</a></li>
+    </ul>
+  </div>
+</nav>

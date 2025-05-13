@@ -1,0 +1,170 @@
+<div class="dialog-backdrop" [class.show]="isOpen" (click)="closeOnBackdrop($event)">
+  <div class="dialog-container" [class.show]="isOpen">
+    <button class="close-btn" (click)="close()">×</button>
+
+    <h2 class="dialog-title">LET'S FIND YOU A BIN!!</h2>
+
+    <!-- Step 1: Address Input -->
+    <div class="dialog-content" *ngIf="currentStep === 1">
+      <p class="instruction">Firstly, we're going to need your delivery address.</p>
+
+      <div class="input-container">
+        <input
+          type="text"
+          class="address-input"
+          placeholder="Delivery address"
+          [(ngModel)]="bookingData.address"
+          (keyup.enter)="goToNextStep()"
+          required
+          #addressInput="ngModel"
+        >
+        <div *ngIf="addressInput.invalid && (addressInput.dirty || addressInput.touched)" class="validation-message">
+          Please enter your address
+        </div>
+      </div>
+
+      <button class="next-btn" (click)="goToNextStep()">Next</button>
+    </div>
+
+    <!-- Step 2: Waste Type Selection -->
+    <div class="dialog-content" *ngIf="currentStep === 2">
+      <p class="instruction">What type of waste are you disposing of?</p>
+
+      <div class="waste-type-container">
+        <div
+          *ngFor="let type of wasteTypes"
+          class="waste-type-option"
+          [class.selected]="bookingData.wasteType === type.value"
+          (click)="bookingData.wasteType = type.value"
+        >
+          <div class="waste-icon" [ngClass]="'waste-type-' + type.value">
+            <i class="icon-{{type.icon}}"></i>
+          </div>
+          <div class="waste-details">
+            <h3>{{ type.label }}</h3>
+            <p class="waste-description">
+              {{ getWasteTypeDescription(type.value) }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="previous-btn" (click)="goToPreviousStep()">Previous</button>
+        <button
+          class="next-btn"
+          [disabled]="!bookingData.wasteType"
+          (click)="goToNextStep()"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 3: Bin Size Selection -->
+    <div class="dialog-content" *ngIf="currentStep === 3">
+      <p class="instruction">Choose the size of bin you need</p>
+
+      <div class="bin-size-container">
+        <div
+          *ngFor="let size of binSizes"
+          class="bin-size-option"
+          [class.selected]="bookingData.binSize === size.value"
+          (click)="bookingData.binSize = size.value"
+        >
+          <div class="bin-icon" [ngClass]="'bin-size-' + size.value"></div>
+          <div class="bin-details">
+            <h3>{{ size.label }}</h3>
+            <p class="bin-description">
+              {{ getBinDescription(size.value) }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="previous-btn" (click)="goToPreviousStep()">Previous</button>
+        <button
+          class="next-btn"
+          [disabled]="!bookingData.binSize"
+          (click)="goToNextStep()"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 4: Service Options -->
+    <div class="dialog-content" *ngIf="currentStep === 4">
+      <p class="instruction">Please provide your preferred service options</p>
+
+      <div class="service-options-grid">
+        <div class="form-group">
+          <label for="deliveryDate">Delivery Date</label>
+          <input
+            type="date"
+            id="deliveryDate"
+            class="form-input"
+            [(ngModel)]="bookingData.deliveryDate"
+            required
+            #deliveryDateInput="ngModel"
+          >
+          <div *ngIf="deliveryDateInput.invalid && (deliveryDateInput.dirty || deliveryDateInput.touched)" class="validation-message">
+            Please select a delivery date
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="hirePeriod">Hire Period</label>
+          <select
+            id="hirePeriod"
+            class="form-select"
+            [(ngModel)]="bookingData.hirePeriod"
+            required
+            #hirePeriodInput="ngModel"
+          >
+            <option value="" disabled selected>Select hire period</option>
+            <option *ngFor="let period of hirePeriods" [value]="period.value">{{ period.label }}</option>
+          </select>
+          <div *ngIf="hirePeriodInput.invalid && (hirePeriodInput.dirty || hirePeriodInput.touched)" class="validation-message">
+            Please select a hire period
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="extraDays">Extra Days</label>
+          <select
+            id="extraDays"
+            class="form-select"
+            [(ngModel)]="bookingData.extraDays"
+          >
+            <option value="" disabled selected>Select extra days</option>
+            <option *ngFor="let option of extraDaysOptions" [value]="option.value">{{ option.label }}</option>
+          </select>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="specialInstructions">Special Instructions</label>
+          <textarea
+            id="specialInstructions"
+            class="form-textarea"
+            rows="4"
+            placeholder="Any special instructions for delivery or pickup"
+            [(ngModel)]="bookingData.specialInstructions"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="previous-btn" (click)="goToPreviousStep()">Previous</button>
+        <button
+          class="next-btn"
+          [disabled]="!isServiceOptionsValid()"
+          (click)="completeBooking()"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

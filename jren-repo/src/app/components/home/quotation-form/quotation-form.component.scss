@@ -1,0 +1,105 @@
+.background-container {
+    // background-image: url('/assets/image.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    // border: 1px solid red;
+
+    justify-content: start;
+    align-items: flex-start; /* Change this to flex-start */
+    // padding-top: 150px; /* Add this to create space at the top */
+    margin-top: 50px;
+
+    h2 {
+      background-color: aqua;
+      padding: 0;
+    }
+    
+  }
+
+.form-container {
+    // border: 1px solid red;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    // padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    // padding: 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px 10px 10px;
+}
+
+.form-group {
+    // margin-bottom: 15px;
+    // border: 1px solid hsl(0, 84%, 51%);
+    // display: flex;
+    align-items: center;
+    // margin-bottom: 15px;
+    // justify-content: center;
+}
+
+.form-group label {
+    // width: 100px;
+    // border: 1px solid hsl(145, 83%, 47%);
+    font-weight: bold;
+    text-align: center;
+    align-self: center;
+    background-color: rgb(155, 134, 134);
+    border-radius: 10px;
+    color: black;
+    display: inline-block;
+    width: 100px; /* Adjust the width as needed */
+    // text-align: right;
+    margin-right: 10px;
+}
+
+.form-group input,
+.form-group select,
+.form-group span {
+  // flex: 1; /* Take up the remaining space */
+  // padding: 8px;
+  // box-sizing: border-box;
+  width: calc(100% - 110px);
+  // border: 1px solid hsl(110, 77%, 54%);
+}
+
+.form-group span {
+  color: crimson;
+  font-weight: bolder;
+}
+
+//   .form-group label {
+//     width: 100px;
+//     font-weight: bold;
+//     align-items: flex-end;
+//     justify-content: end;
+//     display: block;
+//     margin-bottom: 5px;
+//   }
+  
+//   .form-group input,
+//   .form-group select {
+//     width: 100%;
+//     padding: 8px;
+//     box-sizing: border-box;
+//   }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }

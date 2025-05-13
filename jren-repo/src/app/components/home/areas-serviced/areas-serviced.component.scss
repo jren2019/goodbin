@@ -1,0 +1,98 @@
+.areas-serviced-container {
+    background-color: #0a192f;
+
+    .quote-section {
+      background-color: #c71d5600;
+      color: white;
+      // padding: 100px 0;;
+
+      // margin: 200px;
+      button{
+        color: crimson;
+      }
+    }
+
+    .service-zone-section {
+      height: 450px;
+      // background-color: #1ea53b;
+
+      .left-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%; /* Ensure the height is 100% of its container */
+        text-align: center; /* Center text inside the block */
+        // background-color: #57a0a0;
+        // border: 1px solid red;
+        padding: 20px;
+        
+        ul {
+            list-style-type: none; /* Remove bullet points from list items */
+            padding: 0; /* Remove default padding */
+          }
+        
+      }
+
+      .right-section {
+        background-image: url("/assets/images/bg-21.jpg");
+        display: flex;
+        img {
+          max-width: 100%;
+          height: auto;
+          object-fit: cover;
+        }
+      }
+    }
+    
+    .workflow-section{
+      background-color: #0a192f;
+      // color: white;
+      padding: 100px 0;
+
+      .card {
+        border: none;
+        height: 200px;
+        box-shadow: none;
+      }
+      
+      .card img {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 15px;
+      }
+      
+      .card h5 {
+        font-size: 16px;
+        font-weight: bold;
+      }
+      
+      .card p {
+        font-size: 14px;
+        margin: 0;
+      }
+
+      .card .winz{
+        width: 200px !important; 
+      }
+    }
+
+    .instant-quote-section {
+      // margin: 100px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #0a192f;
+      // background-color: #c71d5600;
+      color: white;
+      padding: 100px 0;
+  
+      h3 {
+          margin-bottom: 1rem; /* Adjust as needed for spacing */
+      }
+  
+      button {
+          margin-top: 1rem; /* Ensure there is some spacing above the button */
+      }
+  }
+  }

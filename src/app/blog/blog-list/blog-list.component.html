@@ -1,0 +1,108 @@
+<app-navbar></app-navbar>
+<div class="blog-page-container">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-12 mb-5">
+        <h1 class="main-title text-center">Our Blog</h1>
+        <div class="title-underline"></div>
+        <p class="text-center lead mt-3">Stay up to date with the latest waste management tips, eco-friendly practices, and industry news.</p>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-lg-8">
+        <!-- Blog Posts -->
+        <div class="row">
+          <div *ngFor="let post of blogPosts" class="col-md-6 mb-4">
+            <div class="blog-card" (click)="navigateToPost(post.slug)">
+              <div class="blog-img-container">
+                <img [src]="post.featuredImage" [alt]="post.title" class="blog-img">
+              </div>
+              <div class="blog-content">
+                <div class="blog-meta">
+                  <span class="blog-date">{{post.date}}</span>
+                  <span class="blog-author">by {{post.author}}</span>
+                </div>
+                <h3 class="blog-title">{{post.title}}</h3>
+                <p class="blog-excerpt">{{post.excerpt}}</p>
+                <div class="blog-categories">
+                  <span *ngFor="let category of post.categories.slice(0, 3)" class="badge">{{category}}</span>
+                </div>
+                <a [routerLink]="['/blog', post.slug]" class="blog-read-more">Read More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Newsletter CTA -->
+        <div *ngIf="blogPosts.length > 0" class="mt-4 mb-4">
+          <app-blog-cta></app-blog-cta>
+        </div>
+
+        <!-- Empty State -->
+        <div *ngIf="blogPosts.length === 0" class="empty-state">
+          <p>No blog posts found. Please check back soon!</p>
+          <button *ngIf="selectedCategory" (click)="filterByCategory(null)" class="btn btn-primary">View All Posts</button>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+        <div class="blog-sidebar">
+          <!-- Search -->
+          <div class="sidebar-section">
+            <h4 class="sidebar-title">Search</h4>
+            <div class="search-box">
+              <input type="text" placeholder="Search blog..." class="form-control">
+              <button class="search-btn">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Categories -->
+          <div class="sidebar-section">
+            <h4 class="sidebar-title">Categories</h4>
+            <ul class="category-list">
+              <li [class.active]="selectedCategory === null">
+                <a (click)="filterByCategory(null)">All Categories</a>
+              </li>
+              <li *ngFor="let category of categories" [class.active]="selectedCategory === category.slug">
+                <a (click)="filterByCategory(category.slug)">
+                  {{category.name}} <span class="count">({{category.count}})</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Popular Posts -->
+          <div class="sidebar-section">
+            <h4 class="sidebar-title">Popular Posts</h4>
+            <div class="popular-posts">
+              <div *ngFor="let post of popularPosts" class="popular-post-item" (click)="navigateToPost(post.slug)">
+                <div class="popular-post-img">
+                  <img [src]="post.featuredImage" [alt]="post.title">
+                </div>
+                <div class="popular-post-content">
+                  <h5 class="popular-post-title">{{post.title}}</h5>
+                  <p class="popular-post-date">{{post.date}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Newsletter Signup -->
+          <div class="sidebar-section">
+            <app-newsletter-signup></app-newsletter-signup>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
+
+<!-- Newsletter Modal -->
+<app-newsletter-modal *ngIf="showNewsletterModal" (closed)="closeNewsletterModal()"></app-newsletter-modal>
+
+<!-- Newsletter Button -->
+<app-newsletter-button (showModal)="showNewsletterModal = true"></app-newsletter-button>

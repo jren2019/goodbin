@@ -1,0 +1,37 @@
+<section class="testimonials-section">
+  <div class="container">
+    <h2 class="section-title">What Our Customers Say</h2>
+
+    <div class="testimonials-container">
+      <div class="testimonial-card" *ngFor="let testimonial of testimonials">
+        <div class="google-logo">
+          <img src="assets/images/google-logo.svg" alt="Google">
+        </div>
+
+        <div class="review-content">
+          <p class="review-text">{{ testimonial.review }}</p>
+        </div>
+
+        <div class="testimonial-footer">
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star" *ngFor="let star of [].constructor(testimonial.rating)"></i>
+            </div>
+          </div>
+
+          <div class="reviewer-details">
+            <div class="reviewer-avatar">
+              <div class="avatar-circle" [style.background-color]="testimonial.avatarColor">
+                {{ testimonial.name.charAt(0) }}
+              </div>
+            </div>
+            <div class="reviewer-info">
+              <h3 class="reviewer-name">{{ testimonial.name }}</h3>
+              <p class="reviewer-title">{{ testimonial.title }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

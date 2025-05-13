@@ -1,0 +1,149 @@
+.good-bins-workflow-container {
+  // background-color: #0a192f;
+  min-height: 300px;
+  /* Set the minimum height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  /* Ensure the height is 100% of its container */
+  text-align: center;
+  /* Center text inside the block */
+
+  i {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+}
+
+
+.good-bins-waste-types {
+  min-height: 300px;
+  /* Set the minimum height */
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  /* Ensure the height is 100% of its container */
+  text-align: center;
+  /* Center text inside the block */
+  // align-items: center;
+  // justify-content: center;
+  // border: 1px solid red;
+
+  padding: 350px 0;
+}
+
+.goodbins-sizes-section {
+  // margin: 50px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #0a192f;
+  // background-color: #c71d5600;
+  color: white;
+  padding: 100px 0;
+
+  h3 {
+    margin-bottom: 1rem;
+    /* Adjust as needed for spacing */
+  }
+
+  button {
+    margin-top: 1rem;
+    /* Ensure there is some spacing above the button */
+  }
+}
+
+.legend-section {
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: crimson;
+  font-stretch:extra-expanded;
+  font-weight: bolder;
+}
+
+.contact-us-section {
+  height: 450px;
+  // background-color: #1ea53b;
+
+  .right-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    /* Ensure the height is 100% of its container */
+    text-align: center;
+    /* Center text inside the block */
+    // background-color: #57a0a0;
+    // border: 1px solid red;
+    padding: 20px;
+
+    ul {
+      list-style-type: none;
+      /* Remove bullet points from list items */
+      padding: 0;
+      /* Remove default padding */
+    }
+
+  }
+
+  .left-section {
+    // background-image: url("/assets/images/bg-2.jpg");
+    background-image: url("/assets/images/bg-4.png");
+    display: flex;
+
+    img {
+      max-width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+  }
+}
+
+
+
+.place-holder-row {
+  background-color: #0a192f;
+  min-height: 200px;
+
+}
+
+.quote-section {
+  min-height: 300px;
+}
+
+/* testimonials.component.css */
+.testimonials {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.testimonials h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.testimonial-card {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: #fff;
+}
+
+.testimonial-text {
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.testimonial-author {
+  text-align: right;
+  font-weight: bold;
+}

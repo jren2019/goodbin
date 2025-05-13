@@ -1,0 +1,222 @@
+<div class="dialog-backdrop" [class.show]="isOpen" (click)="closeOnBackdrop($event)">
+  <div class="dialog-container" [class.show]="isOpen">
+    <button class="close-btn" (click)="close()">×</button>
+
+    <h2 class="dialog-title">LET'S GET YOU A WINZ QUOTE!!</h2>
+
+    <!-- Step 1: Address Input -->
+    <div class="dialog-content" *ngIf="currentStep === 1">
+      <p class="instruction">Firstly, we're going to need your delivery address.</p>
+
+      <div class="input-container">
+        <input
+          type="text"
+          class="address-input"
+          placeholder="Delivery address"
+          [(ngModel)]="quoteData.address"
+          (keyup.enter)="goToNextStep()"
+          required
+          #addressInput="ngModel"
+        >
+        <div *ngIf="addressInput.invalid && (addressInput.dirty || addressInput.touched)" class="validation-message">
+          Please enter your address
+        </div>
+      </div>
+
+      <button class="next-btn" (click)="goToNextStep()">Next</button>
+    </div>
+
+    <!-- Step 2: Waste Type Selection -->
+    <div class="dialog-content" *ngIf="currentStep === 2">
+      <p class="instruction">What type of waste are you disposing of?</p>
+
+      <div class="waste-type-container">
+        <div
+          *ngFor="let type of wasteTypes"
+          class="waste-type-option"
+          [class.selected]="quoteData.wasteType === type.value"
+          (click)="quoteData.wasteType = type.value"
+        >
+          <div class="waste-icon">
+            <i class="fas fa-{{type.icon}}"></i>
+          </div>
+          <div class="waste-details">
+            <h3>{{ type.label }}</h3>
+            <p class="waste-description">
+              {{ getWasteTypeDescription(type.value) }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="previous-btn" (click)="goToPreviousStep()">Previous</button>
+        <button
+          class="next-btn"
+          [disabled]="!quoteData.wasteType"
+          (click)="goToNextStep()"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 3: Bin Size Selection -->
+    <div class="dialog-content" *ngIf="currentStep === 3">
+      <p class="instruction">Choose the size of bin you need</p>
+
+      <div class="bin-size-container">
+        <div
+          *ngFor="let size of binSizes"
+          class="bin-size-option"
+          [class.selected]="quoteData.binSize === size.value"
+          (click)="quoteData.binSize = size.value"
+        >
+          <div class="bin-icon" [ngClass]="'bin-size-' + size.value"></div>
+          <div class="bin-details">
+            <h3>{{ size.label }}</h3>
+            <p class="bin-description">
+              {{ getBinDescription(size.value) }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="previous-btn" (click)="goToPreviousStep()">Previous</button>
+        <button
+          class="next-btn"
+          [disabled]="!quoteData.binSize"
+          (click)="goToNextStep()"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 4: Service Options -->
+    <div class="dialog-content" *ngIf="currentStep === 4">
+      <p class="instruction">Please provide your preferred service options</p>
+
+      <div class="service-options-grid">
+        <div class="form-group">
+          <label for="hirePeriod">Hire Period</label>
+          <select
+            id="hirePeriod"
+            class="form-select"
+            [(ngModel)]="quoteData.hirePeriod"
+            required
+            #hirePeriodInput="ngModel"
+          >
+            <option value="" disabled selected>Select hire period</option>
+            <option *ngFor="let period of hirePeriods" [value]="period.value">{{ period.label }}</option>
+          </select>
+          <div *ngIf="hirePeriodInput.invalid && (hirePeriodInput.dirty || hirePeriodInput.touched)" class="validation-message">
+            Please select a hire period
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="extraDays">Extra Days</label>
+          <select
+            id="extraDays"
+            class="form-select"
+            [(ngModel)]="quoteData.extraDays"
+          >
+            <option value="" disabled selected>Select extra days</option>
+            <option *ngFor="let option of extraDaysOptions" [value]="option.value">{{ option.label }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="previous-btn" (click)="goToPreviousStep()">Previous</button>
+        <button
+          class="next-btn"
+          [disabled]="!quoteData.hirePeriod"
+          (click)="goToNextStep()"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 5: Personal Details -->
+    <div class="dialog-content" *ngIf="currentStep === 5">
+      <p class="instruction">Finally, we're going to need some details about you</p>
+
+      <div class="user-details-grid">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input
+            type="text"
+            id="firstName"
+            class="form-input"
+            [(ngModel)]="quoteData.firstName"
+            required
+            #firstNameInput="ngModel"
+          >
+          <div *ngIf="firstNameInput.invalid && (firstNameInput.dirty || firstNameInput.touched)" class="validation-message">
+            Please enter your first name
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Surname</label>
+          <input
+            type="text"
+            id="lastName"
+            class="form-input"
+            [(ngModel)]="quoteData.lastName"
+            required
+            #lastNameInput="ngModel"
+          >
+          <div *ngIf="lastNameInput.invalid && (lastNameInput.dirty || lastNameInput.touched)" class="validation-message">
+            Please enter your surname
+          </div>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            class="form-input"
+            [(ngModel)]="quoteData.email"
+            required
+            #emailInput="ngModel"
+          >
+          <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)" class="validation-message">
+            Please enter a valid email address
+          </div>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="phone">Phone Number</label>
+          <input
+            type="tel"
+            id="phone"
+            class="form-input"
+            [(ngModel)]="quoteData.phone"
+            required
+            #phoneInput="ngModel"
+          >
+          <div *ngIf="phoneInput.invalid && (phoneInput.dirty || phoneInput.touched)" class="validation-message">
+            Please enter your phone number
+          </div>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="previous-btn" (click)="goToPreviousStep()">Previous</button>
+        <button
+          class="submit-btn"
+          [disabled]="!isUserDetailsValid()"
+          (click)="completeQuote()"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

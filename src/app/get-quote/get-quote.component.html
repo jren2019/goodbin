@@ -1,0 +1,126 @@
+<div class="get-quote-page">
+  <div class="container">
+    <h1>Get a Free Quote</h1>
+    <p class="subtitle">Fill out the form below to receive a free quote for your bin hire</p>
+
+    <div class="quote-form-container">
+      <form (ngSubmit)="onSubmit()" #quoteForm="ngForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" [(ngModel)]="quoteData.email" required placeholder="Email">
+          </div>
+
+          <div class="form-group">
+            <label for="mobile">Mobile Number</label>
+            <input type="tel" id="mobile" name="mobile" [(ngModel)]="quoteData.mobile" required placeholder="Mobile">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="binType">What type of waste are you disposing of?</label>
+          <div class="custom-select-wrapper">
+            <select id="binType" name="binType" [(ngModel)]="quoteData.binType" required>
+              <option value="general_waste">General Waste - Household waste, furniture, timber</option>
+              <option value="green_waste">Green Waste - Garden waste, leaves, branches</option>
+              <option value="hardfill">Hardfill - Concrete, bricks, tiles, soil</option>
+            </select>
+            <div class="select-icon">
+              <fa-icon [icon]="faChevronDown"></fa-icon>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="address">Where will the bin be delivered?</label>
+          <input
+            type="text"
+            id="address"
+            name="address"
+            [(ngModel)]="quoteData.address"
+            required
+            placeholder="Enter your delivery address"
+            class="address-input">
+          <small class="input-help">Please enter your full delivery address including suburb and postcode</small>
+        </div>
+
+        <div class="form-group">
+          <label for="binSize">What size bin do you need?</label>
+          <div class="custom-select-wrapper">
+            <select id="binSize" name="binSize" [(ngModel)]="quoteData.binSize" required>
+              <option value="2m3">2m³ Mini Bin (up to 500kg)</option>
+              <option value="4m3">4m³ Small Bin (up to 800kg)</option>
+              <option value="6m3">6m³ Medium Bin (up to 1000kg)</option>
+              <option value="9m3">9m³ Large Bin (up to 1500kg)</option>
+            </select>
+            <div class="select-icon">
+              <fa-icon [icon]="faChevronDown"></fa-icon>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="deliveryDate">Delivery Date</label>
+            <input
+              type="date"
+              id="deliveryDate"
+              name="deliveryDate"
+              [(ngModel)]="quoteData.deliveryDate"
+              required
+              class="date-input">
+          </div>
+
+          <div class="form-group">
+            <label for="hirePeriod">Hire Period</label>
+            <div class="custom-select-wrapper">
+              <select id="hirePeriod" name="hirePeriod" [(ngModel)]="quoteData.hirePeriod" required>
+                <option value="3_days">3 Days</option>
+                <option value="5_days">5 Days</option>
+                <option value="7_days">7 Days</option>
+                <option value="14_days">14 Days</option>
+              </select>
+              <div class="select-icon">
+                <fa-icon [icon]="faChevronDown"></fa-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="instructions">Special Instructions</label>
+          <textarea id="instructions" name="instructions" rows="3" [(ngModel)]="quoteData.instructions"
+            placeholder="Any special instructions for delivery or pickup"></textarea>
+        </div>
+
+        <div class="pricing-info">
+          <p>We charge 30¢ per kg for any weight exceeding the bin's capacity.</p>
+          <p>You'll receive a quote based on your selection via email shortly.</p>
+        </div>
+
+        <button type="submit" class="submit-btn">Get My Free Quote</button>
+      </form>
+    </div>
+
+    <div class="additional-info">
+      <h2>Why Choose GoodBins?</h2>
+      <div class="benefits">
+        <div class="benefit">
+          <fa-icon [icon]="faTruckLoading"></fa-icon>
+          <h3>Fast Delivery</h3>
+          <p>Same day or next day delivery available</p>
+        </div>
+        <div class="benefit">
+          <fa-icon [icon]="faDollarSign"></fa-icon>
+          <h3>Competitive Pricing</h3>
+          <p>Best rates in Auckland guaranteed</p>
+        </div>
+        <div class="benefit">
+          <fa-icon [icon]="faRecycle"></fa-icon>
+          <h3>Eco-Friendly</h3>
+          <p>We recycle as much waste as possible</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

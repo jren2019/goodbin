@@ -1,0 +1,57 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>Login to your account</h2>
+
+    <div class="alert alert-danger" *ngIf="error">
+      {{ error }}
+    </div>
+
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          [(ngModel)]="username"
+          required
+          placeholder="Enter your username"
+          #usernameInput="ngModel"
+        >
+        <div class="error-message" *ngIf="usernameInput.invalid && (usernameInput.dirty || usernameInput.touched)">
+          Username is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+          placeholder="Enter your password"
+          #passwordInput="ngModel"
+        >
+        <div class="error-message" *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)">
+          Password is required
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" [disabled]="!loginForm.form.valid || isLoggingIn">
+          {{ isLoggingIn ? 'Logging in...' : 'Login' }}
+        </button>
+      </div>
+    </form>
+
+    <div class="demo-info">
+      <p><strong>Demo Note:</strong> Any username and password will work for this demo.</p>
+    </div>
+
+    <div class="signup-link">
+      Don't have an account? <a routerLink="/signup">Sign up here</a>
+    </div>
+  </div>
+</div>

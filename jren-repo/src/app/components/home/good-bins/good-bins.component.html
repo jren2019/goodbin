@@ -1,0 +1,70 @@
+<div class="goodbins-sizes-section bg-dark row text-white text-center py-6">
+  <h3>Our skip bins come in different sizes</h3>
+
+  <button class="btn btn-outline-light mt-2" [routerLink]="['/', languageService.language, 'bins']">
+    Find Out More
+  </button>
+</div>
+
+<div class="container my-5" id="services">
+  <div class="text-center mb-4" style="margin: 150px;">
+    <h2>Waste Types</h2>
+  </div>
+  <div class="row text-center">
+    <div class="col-md-4">
+      <h3 class="mt-3">General Rubbish</h3>
+      <div class="icon-container">
+        <img src="assets/svgs/waste-types-1.svg" alt="General Rubbish">
+      </div>
+      <p>Our rubbish bins are for everyday rubbish, garden waste, or construction site rubbish.</p>
+    </div>
+    <div class="col-md-4">
+      <h3 class="mt-3">Hardfill</h3>
+      <div class="icon-container">
+        <img src="assets/svgs/waste-types-2.svg" alt="Hardfill">
+      </div>
+      <p>Our hardfill skip bins are for soil, concrete, bricks, rock, and stone.</p>
+    </div>
+    <div class="col-md-4">
+      <h3 class="mt-3">Green Waste</h3>
+      <div class="icon-container">
+        <img src="assets/svgs/waste-types-3.svg" alt="Garden Waste">
+      </div>
+      <p>Green waste like branches, leaves, garden cuttings, or lawn clippings can be mixed with general rubbish.
+        Choose a rubbish bin if you have garden waste.</p>
+    </div>
+  </div>
+</div>
+
+<div class="legend-section bg-dark text-center p-5">
+
+  <h1>Rubbish is not that interesting!</h1>
+  <h2>Let's get it gone</h2>
+</div>
+
+<div class="row contact-us-section">
+  <div class="col-md-6 text-white p-4 left-section">
+  </div>
+  <!-- <div class="col-md-6 right-section" >
+      Call us 24/7 and we'll help you choose the right bin!
+      <p>Tel: 02212345678</p>
+      <p>Email: ''</p>
+  </div> -->
+  <div class="col-md-6 p-4 right-section">
+    <h2>Call us 24/7 and we'll help you choose the right bin!</h2>
+    <ul>
+      <li>Tel: 02040936279</li>
+      <li>Email: gooddayremovals&#64;hotmail.com</li>
+    </ul>
+  </div>
+</div>
+
+<!-- <div class="row bg-dark place-holder-row" id="testimonials"> -->
+<section class="testimonials container" id="testimonials">
+  <h2>What Our Customers Say</h2>
+  <div class="testimonial-card" *ngFor="let testimonial of testimonials">
+    <p class="testimonial-text">{{ testimonial.text }}</p>
+    <p class="testimonial-author">— {{ testimonial.author }}</p>
+  </div>
+</section>
+<!-- </div> -->

@@ -1,0 +1,29 @@
+input, select, textarea, .form-control {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+  caret-color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+/* Add this new rule to force styling even more aggressively */
+input::placeholder,
+select::placeholder,
+textarea::placeholder {
+  color: #999999 !important;
+  opacity: 1 !important;
+}
+
+/* Add this to override any auto-fill styles from browsers */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+  -webkit-text-fill-color: #000000 !important;
+  transition: background-color 5000s ease-in-out 0s;
+}

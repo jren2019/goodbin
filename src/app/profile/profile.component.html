@@ -1,0 +1,368 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <div class="avatar-wrapper">
+      <div class="avatar-container">
+        <img [src]="userAvatar || 'assets/images/default-avatar.png'" alt="Avatar" class="avatar-img" />
+        <label for="avatar-upload" class="edit-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+          </svg>
+        </label>
+        <input id="avatar-upload" type="file" accept="image/*" (change)="onAvatarChange($event)" class="hidden-input" />
+      </div>
+    </div>
+    <div class="user-info">
+      <h1 class="username">{{ username }}</h1>
+      <p class="welcome-message">Welcome back!</p>
+    </div>
+  </div>
+
+  <div class="profile-content">
+    <div class="profile-tabs">
+      <button
+        class="tab-button"
+        [class.active]="activeTab === 'payment'"
+        (click)="setActiveTab('payment')"
+      >
+        Payment Method
+      </button>
+      <button
+        class="tab-button"
+        [class.active]="activeTab === 'orders'"
+        (click)="setActiveTab('orders')"
+      >
+        Order History
+      </button>
+      <button
+        class="tab-button"
+        [class.active]="activeTab === 'addresses'"
+        (click)="setActiveTab('addresses')"
+      >
+        Addresses
+      </button>
+    </div>
+
+    <div class="tab-content">
+      <!-- Payment Method Tab -->
+      <div *ngIf="activeTab === 'payment'" class="payment-section">
+        <h2>Payment Method</h2>
+
+        <div *ngIf="saveSuccess" class="alert alert-success">
+          Payment method saved successfully!
+        </div>
+
+        <form (ngSubmit)="onPaymentSubmit()" #paymentForm="ngForm">
+          <div class="form-group">
+            <label for="cardNumber">Card Number</label>
+            <div class="card-input-wrapper">
+              <input
+                type="text"
+                id="cardNumber"
+                name="cardNumber"
+                [(ngModel)]="paymentMethod.cardNumber"
+                required
+                placeholder="1234 5678 9012 3456"
+                #cardNumberInput="ngModel"
+                (input)="onCardNumberChange()"
+                autocomplete="cc-number"
+                [class.is-invalid]="(cardNumberInput.invalid && (cardNumberInput.dirty || cardNumberInput.touched)) || cardErrors.number"
+                maxlength="19"
+              >
+              <img *ngIf="cardTypeInfo" [src]="getCardLogoPath()" alt="Card Logo" class="card-logo">
+            </div>
+            <div class="error-message" *ngIf="cardNumberInput.invalid && (cardNumberInput.dirty || cardNumberInput.touched) && !cardErrors.number">
+              Card number is required
+            </div>
+            <div class="error-message" *ngIf="cardErrors.number">
+              {{ cardErrors.number }}
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cvc">CVC</label>
+              <input
+                type="text"
+                id="cvc"
+                name="cvc"
+                [(ngModel)]="paymentMethod.cvc"
+                required
+                placeholder="123"
+                maxlength="4"
+                #cvcInput="ngModel"
+                (input)="onCvcChange()"
+                autocomplete="cc-csc"
+                [class.is-invalid]="(cvcInput.invalid && (cvcInput.dirty || cvcInput.touched)) || cardErrors.cvc"
+              >
+              <div class="error-message" *ngIf="cvcInput.invalid && (cvcInput.dirty || cvcInput.touched) && !cardErrors.cvc">
+                CVC is required
+              </div>
+              <div class="error-message" *ngIf="cardErrors.cvc">
+                {{ cardErrors.cvc }}
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="expiryDate">Expiry Date</label>
+              <input
+                type="text"
+                id="expiryDate"
+                name="expiryDate"
+                [(ngModel)]="paymentMethod.expiryDate"
+                required
+                placeholder="MM/YY"
+                maxlength="5"
+                #expiryInput="ngModel"
+                (input)="onExpiryDateChange()"
+                autocomplete="cc-exp"
+                [class.is-invalid]="(expiryInput.invalid && (expiryInput.dirty || expiryInput.touched)) || cardErrors.expiry"
+              >
+              <div class="error-message" *ngIf="expiryInput.invalid && (expiryInput.dirty || expiryInput.touched) && !cardErrors.expiry">
+                Expiry date is required
+              </div>
+              <div class="error-message" *ngIf="cardErrors.expiry">
+                {{ cardErrors.expiry }}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="nameOnCard">Name on Card</label>
+            <input
+              type="text"
+              id="nameOnCard"
+              name="nameOnCard"
+              [(ngModel)]="paymentMethod.nameOnCard"
+              required
+              placeholder="John Doe"
+              #nameInput="ngModel"
+              autocomplete="cc-name"
+              [class.is-invalid]="nameInput.invalid && (nameInput.dirty || nameInput.touched)"
+            >
+            <div class="error-message" *ngIf="nameInput.invalid && (nameInput.dirty || nameInput.touched)">
+              Name is required
+            </div>
+          </div>
+
+          <button type="submit" [disabled]="!paymentForm.form.valid || isSaving || cardErrors.number || cardErrors.cvc || cardErrors.expiry">
+            {{ isSaving ? 'Saving...' : 'Save Payment Method' }}
+          </button>
+        </form>
+      </div>
+
+      <!-- Orders History Tab -->
+      <div *ngIf="activeTab === 'orders'" class="orders-section">
+        <h2>Order History</h2>
+
+        <div class="orders-empty" *ngIf="!orders || orders.length === 0">
+          <p>You haven't placed any orders yet.</p>
+        </div>
+
+        <div class="orders-list" *ngIf="orders && orders.length > 0">
+          <table class="orders-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Weight</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let order of orders">
+                <td>#{{ order.id }}</td>
+                <td>{{ order.date }}</td>
+                <td>{{ order.type }}</td>
+                <td>{{ order.weight }} kg</td>
+                <td>{{ order.price | currency }}</td>
+                <td>
+                  <span class="status-badge" [class]="order.status">
+                    {{ order.status }}
+                  </span>
+                </td>
+                <td>
+                  <a [routerLink]="['/profile/order', order.id]" class="view-details-btn">
+                    View Details
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Addresses Tab -->
+      <div *ngIf="activeTab === 'addresses'" class="addresses-section">
+        <h2>My Addresses</h2>
+
+        <div *ngIf="addressSaved" class="alert alert-success">
+          Address saved successfully!
+        </div>
+
+        <div *ngIf="addressDeleted" class="alert alert-info">
+          Address deleted successfully.
+        </div>
+
+        <div class="addresses-empty" *ngIf="!addresses || addresses.length === 0">
+          <p>You haven't added any addresses yet.</p>
+        </div>
+
+        <div class="addresses-list" *ngIf="addresses && addresses.length > 0">
+          <div class="address-card" *ngFor="let address of addresses">
+            <div class="address-card-header">
+              <h3>{{ address.nickname }}</h3>
+              <span class="default-badge" *ngIf="address.isDefault">Default</span>
+            </div>
+
+            <div class="address-content">
+              <p>{{ address.street }}</p>
+              <p>{{ address.city }}, {{ address.state }} {{ address.postalCode }}</p>
+              <p>{{ address.country }}</p>
+            </div>
+
+            <div class="address-actions">
+              <button
+                *ngIf="!address.isDefault"
+                class="btn-default"
+                (click)="setDefaultAddress(address.id)"
+              >
+                Set as Default
+              </button>
+              <button class="btn-edit" (click)="editAddress(address)">Edit</button>
+              <button class="btn-delete" (click)="deleteAddress(address.id)">Delete</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="address-form-container">
+          <h3>{{ editingAddress ? 'Edit Address' : 'Add New Address' }}</h3>
+
+          <form (ngSubmit)="onAddressSubmit()" #addressForm="ngForm">
+            <div class="form-group">
+              <label for="nickname">Address Nickname</label>
+              <input
+                type="text"
+                id="nickname"
+                name="nickname"
+                [(ngModel)]="currentAddress.nickname"
+                required
+                placeholder="e.g., Home, Work, etc."
+                #nicknameInput="ngModel"
+                [class.is-invalid]="nicknameInput.invalid && (nicknameInput.dirty || nicknameInput.touched)"
+              >
+              <div class="error-message" *ngIf="nicknameInput.invalid && (nicknameInput.dirty || nicknameInput.touched)">
+                Nickname is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="street">Street Address</label>
+              <input
+                type="text"
+                id="street"
+                name="street"
+                [(ngModel)]="currentAddress.street"
+                required
+                placeholder="123 Main St"
+                #streetInput="ngModel"
+                [class.is-invalid]="streetInput.invalid && (streetInput.dirty || streetInput.touched)"
+              >
+              <div class="error-message" *ngIf="streetInput.invalid && (streetInput.dirty || streetInput.touched)">
+                Street address is required
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="city">City</label>
+                <input
+                  type="text"
+                  id="city"
+                  name="city"
+                  [(ngModel)]="currentAddress.city"
+                  required
+                  placeholder="City"
+                  #cityInput="ngModel"
+                  [class.is-invalid]="cityInput.invalid && (cityInput.dirty || cityInput.touched)"
+                >
+                <div class="error-message" *ngIf="cityInput.invalid && (cityInput.dirty || cityInput.touched)">
+                  City is required
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="state">State</label>
+                <input
+                  type="text"
+                  id="state"
+                  name="state"
+                  [(ngModel)]="currentAddress.state"
+                  required
+                  placeholder="State"
+                  #stateInput="ngModel"
+                  [class.is-invalid]="stateInput.invalid && (stateInput.dirty || stateInput.touched)"
+                >
+                <div class="error-message" *ngIf="stateInput.invalid && (stateInput.dirty || stateInput.touched)">
+                  State is required
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="postalCode">Postal Code</label>
+                <input
+                  type="text"
+                  id="postalCode"
+                  name="postalCode"
+                  [(ngModel)]="currentAddress.postalCode"
+                  required
+                  placeholder="Postal Code"
+                  #postalCodeInput="ngModel"
+                  [class.is-invalid]="postalCodeInput.invalid && (postalCodeInput.dirty || postalCodeInput.touched)"
+                >
+                <div class="error-message" *ngIf="postalCodeInput.invalid && (postalCodeInput.dirty || postalCodeInput.touched)">
+                  Postal code is required
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="country">Country</label>
+                <input
+                  type="text"
+                  id="country"
+                  name="country"
+                  [(ngModel)]="currentAddress.country"
+                  required
+                  placeholder="Country"
+                  #countryInput="ngModel"
+                  [class.is-invalid]="countryInput.invalid && (countryInput.dirty || countryInput.touched)"
+                >
+                <div class="error-message" *ngIf="countryInput.invalid && (countryInput.dirty || countryInput.touched)">
+                  Country is required
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group checkbox-group">
+              <input
+                type="checkbox"
+                id="isDefault"
+                name="isDefault"
+                [(ngModel)]="currentAddress.isDefault"
+              >
+              <label for="isDefault">Set as default address</label>
+            </div>
+
+            <button type="submit" [disabled]="!addressForm.form.valid || isSavingAddress">
+              {{ isSavingAddress ? (editingAddress ? 'Saving...' : 'Adding...') : (editingAddress ? 'Save Address' : 'Add Address') }}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,178 @@
+/* Enhanced form input styles with micro-interactions */
+.form-input,
+.form-select,
+.form-textarea {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.form-group.focused::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(90deg, #5acbd2, #83d9cb);
+  z-index: 0;
+  opacity: 1;
+  border-radius: 0 0 4px 4px;
+  animation: expand-line 0.3s ease;
+}
+
+@keyframes expand-line {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+/* Label floating animation */
+.form-group.focused label,
+.form-group.has-value label {
+  color: #5acbd2;
+  transform: translateY(-5px) scale(0.9);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+/* Enhanced validation styles with animations */
+.form-input.ng-invalid.ng-touched,
+.form-select.ng-invalid.ng-touched {
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%, 50%, 70% {
+    transform: translate3d(-2px, 0, 0);
+  }
+  40%, 60% {
+    transform: translate3d(2px, 0, 0);
+  }
+}
+
+.validation-message {
+  animation: slide-in 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Ripple effect for buttons */
+.next-btn:focus:not(:active)::after,
+.previous-btn:focus:not(:active)::after,
+.btn:focus:not(:active)::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.4);
+  opacity: 0;
+  border-radius: 100%;
+  transform-origin: 50% 50%;
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.6;
+  }
+  20% {
+    transform: scale(25, 25);
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
+}
+
+/* Date input micro-interactions */
+.date-input-container::before {
+  content: '📅';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  opacity: 0.7;
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.date-input-container:hover::before {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.1);
+  color: #5acbd2;
+}
+
+/* Input success state animation */
+.form-group.success::before {
+  content: '✓';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  color: #4caf50;
+  font-size: 16px;
+  transform: translateY(-50%);
+  animation: pop-in 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 2;
+}
+
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%) scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+}
+
+/* Ripple effect for buttons */
+.ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.4);
+  width: 100px;
+  height: 100px;
+  margin-top: -50px;
+  margin-left: -50px;
+  opacity: 0;
+  pointer-events: none;
+  animation: ripple-animation 0.6s ease-out;
+}
+
+@keyframes ripple-animation {
+  0% {
+    transform: scale(0);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}

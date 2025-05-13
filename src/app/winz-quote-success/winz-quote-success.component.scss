@@ -1,0 +1,152 @@
+.success-container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #f8f9fa;
+}
+
+.success-card {
+  max-width: 800px;
+  width: 100%;
+  background: white;
+  border-radius: 15px;
+  padding: 4rem 2rem;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.success-icon {
+  font-size: 6rem;
+  color: #4caf50;
+  margin-bottom: 2rem;
+  animation: scaleIn 0.5s ease-out 0.2s both;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.success-title {
+  font-size: 3rem;
+  color: #0b132b;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.success-message {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.success-detail {
+  font-size: 1.25rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.success-farewell {
+  font-size: 1.25rem;
+  color: #555;
+  margin-bottom: 3rem;
+}
+
+.home-btn {
+  background-color: #ffcd85;
+  color: #333;
+  border: none;
+  border-radius: 6px;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.home-btn:hover {
+  background-color: #ffbd5c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.home-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .success-card {
+    padding: 3rem 1.5rem;
+  }
+
+  .success-icon {
+    font-size: 5rem;
+  }
+
+  .success-title {
+    font-size: 2.5rem;
+  }
+
+  .success-message {
+    font-size: 1.2rem;
+  }
+
+  .success-detail,
+  .success-farewell {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .success-card {
+    padding: 2rem 1rem;
+  }
+
+  .success-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .success-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .success-message {
+    font-size: 1rem;
+  }
+
+  .success-detail,
+  .success-farewell {
+    font-size: 0.95rem;
+  }
+
+  .home-btn {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+  }
+}

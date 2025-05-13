@@ -1,0 +1,223 @@
+/* Variables */
+$Navy: #0b132b;
+$LightNavy: #17487d;
+$LightestNavy: #5b89c1;
+$Slate: #a8b2d1;
+$LightSlate: #c4d5f2;
+$LightestSlate: #f1f2f5;
+$White: #ffffff;
+$Green: #5acbd2;
+$Pink: #e61960;
+$LightBg: #131d3b;
+
+$MainFont: 'Poppins', 'San Francisco', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', Arial, sans-serif;
+$CodeFont: 'SF Mono', 'Fira Code', Consolas, Monaco, monospace;
+
+/* Reset and base styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  background-color: $Navy;
+  color: $LightSlate;
+  line-height: 1.5;
+  font-family: $MainFont;
+  font-size: 16px;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: $White;
+}
+
+p {
+  margin: 0 0 1rem;
+  color: $Slate;
+}
+
+a {
+  color: $Green;
+  text-decoration: none;
+  transition: all 0.25s ease;
+
+  &:hover {
+    color: $Pink;
+  }
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: $MainFont;
+
+  &.primary {
+    background-color: $Pink;
+    color: $White;
+    border: 2px solid $Pink;
+
+    &:hover {
+      background-color: darken($Pink, 10%);
+      border-color: darken($Pink, 10%);
+    }
+  }
+
+  &.secondary {
+    background-color: $Green;
+    color: $Navy;
+    border: 2px solid $Green;
+
+    &:hover {
+      background-color: darken($Green, 10%);
+      border-color: darken($Green, 10%);
+    }
+  }
+
+  &.outline {
+    background-color: transparent;
+    color: $White;
+    border: 2px solid $White;
+
+    &:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+  }
+}
+
+/* Layout */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.section {
+  padding: 4rem 0;
+  background-color: $Navy;
+}
+
+/* Cards */
+.card {
+  background-color: $LightBg;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Section Dividers */
+.divider {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(to right, rgba(90, 203, 210, 0), rgba(90, 203, 210, 0.5), rgba(90, 203, 210, 0));
+  margin: 3rem 0;
+}
+
+/* Accents */
+.accent-text {
+  color: $Green;
+}
+
+.accent-bg {
+  background-color: $Green;
+  color: $Navy;
+}
+
+/* Utilities */
+.text-center {
+  text-align: center;
+}
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+.mb-5 { margin-bottom: 3rem; }
+
+/* Form Styles */
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  font-family: $MainFont;
+  font-size: 1rem;
+  color: $White;
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: $Green;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: $LightSlate;
+}
+
+/* Media Queries */
+@media (max-width: 1200px) {
+  .container {
+    max-width: 992px;
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+  .container {
+    max-width: 100%;
+  }
+  .section {
+    padding: 3rem 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .section {
+    padding: 2rem 0;
+  }
+}

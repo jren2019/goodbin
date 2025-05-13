@@ -1,0 +1,158 @@
+<app-navbar></app-navbar>
+<div class="blog-detail-container">
+  <div class="container py-5">
+    <div *ngIf="notFound" class="not-found">
+      <h2>Blog Post Not Found</h2>
+      <p>The blog post you're looking for doesn't exist or has been removed.</p>
+      <button class="btn btn-primary" routerLink="/blog">Back to Blog</button>
+    </div>
+
+    <div *ngIf="!notFound && blogPost" class="row">
+      <!-- Main Content -->
+      <div class="col-lg-8">
+        <div class="blog-post">
+          <!-- Featured Image -->
+          <div class="blog-featured-img">
+            <img [src]="blogPost.featuredImage" [alt]="blogPost.title" class="img-fluid">
+          </div>
+
+          <!-- Categories -->
+          <div class="blog-categories mt-4">
+            <span *ngFor="let category of blogPost.categories"
+                  class="badge"
+                  (click)="navigateToCategory(category)">
+              {{category}}
+            </span>
+          </div>
+
+          <!-- Title -->
+          <h1 class="blog-title mt-3">{{blogPost.title}}</h1>
+
+          <!-- Meta -->
+          <div class="blog-meta">
+            <span class="blog-date">{{blogPost.date}}</span>
+            <span class="blog-author">by {{blogPost.author}}</span>
+          </div>
+
+          <!-- Content -->
+          <div class="blog-content mt-4" [innerHTML]="blogPost.content | markdown"></div>
+
+          <!-- Newsletter CTA -->
+          <app-blog-cta></app-blog-cta>
+
+          <!-- Tags and Share -->
+          <div class="blog-footer">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <div class="blog-tags">
+                  <span class="tag-label">Tags:</span>
+                  <div class="tags">
+                    <span *ngFor="let category of blogPost.categories"
+                          class="badge tag"
+                          (click)="navigateToCategory(category)">
+                      {{category}}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="blog-share">
+                  <span class="share-label">Share:</span>
+                  <div class="share-links">
+                    <a (click)="shareOnFacebook()" class="share-link facebook">
+                      <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a (click)="shareOnTwitter()" class="share-link twitter">
+                      <i class="fab fa-twitter"></i>
+                    </a>
+                    <a (click)="shareOnLinkedIn()" class="share-link linkedin">
+                      <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a (click)="shareOnPinterest()" class="share-link pinterest">
+                      <i class="fab fa-pinterest"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Related Posts -->
+        <div *ngIf="relatedPosts.length > 0" class="related-posts mt-5">
+          <h3 class="section-title">Related Posts</h3>
+          <div class="row">
+            <div *ngFor="let post of relatedPosts" class="col-md-4 mb-4">
+              <div class="related-post-card" (click)="navigateToPost(post.slug)">
+                <div class="related-post-img">
+                  <img [src]="post.featuredImage" [alt]="post.title">
+                </div>
+                <div class="related-post-content">
+                  <h4 class="related-post-title">{{post.title}}</h4>
+                  <p class="related-post-date">{{post.date}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+        <div class="blog-sidebar">
+          <!-- Search -->
+          <div class="sidebar-section">
+            <h4 class="sidebar-title">Search</h4>
+            <div class="search-box">
+              <input type="text" placeholder="Search blog..." class="form-control">
+              <button class="search-btn">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Categories -->
+          <div class="sidebar-section">
+            <h4 class="sidebar-title">Categories</h4>
+            <ul class="category-list">
+              <li *ngFor="let category of categories">
+                <a (click)="navigateToCategory(category.slug)">
+                  {{category.name}} <span class="count">({{category.count}})</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Popular Posts -->
+          <div class="sidebar-section">
+            <h4 class="sidebar-title">Popular Posts</h4>
+            <div class="popular-posts">
+              <div *ngFor="let post of popularPosts" class="popular-post-item" (click)="navigateToPost(post.slug)">
+                <div class="popular-post-img">
+                  <img [src]="post.featuredImage" [alt]="post.title">
+                </div>
+                <div class="popular-post-content">
+                  <h5 class="popular-post-title">{{post.title}}</h5>
+                  <p class="popular-post-date">{{post.date}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Newsletter Signup -->
+          <div class="sidebar-section">
+            <app-newsletter-signup></app-newsletter-signup>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
+
+<!-- Newsletter Modal -->
+<app-newsletter-modal *ngIf="showNewsletterModal" (closed)="closeNewsletterModal()"></app-newsletter-modal>
+
+<!-- Newsletter Button -->
+<app-newsletter-button (showModal)="showNewsletterModal = true"></app-newsletter-button>
